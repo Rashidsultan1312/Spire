@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=3 uid="uid://crtvt2o1tbolg"]
+
+[ext_resource type="Texture2D" uid="uid://bcrghqs5qjorl" path="res://assets/sprites/v2/characters/gnome_cartoon.png" id="gnome_tex"]
+
+[sub_resource type="StyleBoxFlat" id="panel_style"]
+content_margin_left = 14.0
+content_margin_top = 12.0
+content_margin_right = 14.0
+content_margin_bottom = 12.0
+bg_color = Color(0.08, 0.05, 0.16, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.5, 0.4, 0.25, 1)
+corner_radius_top_left = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="AtlasTexture" id="gnome_atlas"]
+atlas = ExtResource("gnome_tex")
+region = Rect2(0, 0, 64, 64)
+
+[node name="GnomeDialog" type="CanvasLayer"]
+layer = 50
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Root"]
+layout_mode = 0
+offset_left = 760.0
+offset_top = 450.0
+offset_right = 1260.0
+offset_bottom = 660.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("panel_style")
+
+[node name="HBox" type="HBoxContainer" parent="Root/Panel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Avatar" type="TextureRect" parent="Root/Panel/HBox"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("gnome_atlas")
+stretch_mode = 5
+
+[node name="TextVBox" type="VBoxContainer" parent="Root/Panel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="NameLabel" type="Label" parent="Root/Panel/HBox/TextVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.8, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 20
+text = "Gnome"
+
+[node name="HintLabel" type="Label" parent="Root/Panel/HBox/TextVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.92, 0.9, 0.98, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 18
+autowrap_mode = 2

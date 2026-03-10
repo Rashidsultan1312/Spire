@@ -1,0 +1,54 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
+[application]
+
+config/name="Спайр"
+run/main_scene="res://scenes/main_menu.tscn"
+config/features=PackedStringArray("4.6", "Mobile")
+
+[autoload]
+
+WorldThemes="*res://scripts/autoload/world_themes.gd"
+GameManager="*res://scripts/autoload/game_manager.gd"
+SoundManager="*res://scripts/autoload/sound_manager.gd"
+DebugManager="*res://scripts/autoload/debug_manager.gd"
+
+[display]
+
+window/size/viewport_width=750
+window/size/viewport_height=1334
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_width"
+window/handheld/orientation=1
+
+[filesystem]
+
+import/blender/enabled=false
+
+[gui]
+
+theme/custom="res://themes/default_theme.tres"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="mobile"
+textures/vram_compression/import_s3tc_bptc=true
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.12, 0.1, 0.14, 1)

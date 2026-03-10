@@ -1,0 +1,124 @@
+[gd_resource type="Theme" format=3 uid="uid://bw3axbof1evgf"]
+
+[ext_resource type="FontFile" uid="uid://c25166i8ve6yg" path="res://assets/fonts/Comfortaa-Variable.ttf" id="1"]
+[ext_resource type="Texture2D" uid="uid://dwlqldc0qklnr" path="res://assets/sprites/ui/buttonLong_grey.png" id="btn_hover_tex"]
+[ext_resource type="Texture2D" uid="uid://do2nrjnjjn033" path="res://assets/sprites/ui/buttonLong_blue.png" id="btn_normal_tex"]
+[ext_resource type="Texture2D" uid="uid://c44qsvwq24c24" path="res://assets/sprites/ui/buttonLong_blue_pressed.png" id="btn_pressed_tex"]
+[ext_resource type="Texture2D" uid="uid://c0vy8anuw0v6e" path="res://assets/sprites/ui/grabber_dark.png" id="grabber_tex"]
+
+[sub_resource type="StyleBoxEmpty" id="btn_focus"]
+
+[sub_resource type="StyleBoxTexture" id="btn_hover"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+texture = ExtResource("btn_hover_tex")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.7, 0.55, 0.95, 1)
+
+[sub_resource type="StyleBoxTexture" id="btn_normal"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+texture = ExtResource("btn_normal_tex")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.8, 0.6, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="btn_pressed"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+texture = ExtResource("btn_pressed_tex")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.6, 0.45, 0.8, 1)
+
+[sub_resource type="StyleBoxEmpty" id="checkbox_focus"]
+
+[sub_resource type="StyleBoxEmpty" id="slider_focus"]
+
+[sub_resource type="StyleBoxFlat" id="grabber_area"]
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.35, 0.2, 0.55, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="grabber_area_highlight"]
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.45, 0.28, 0.65, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="slider_bg"]
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.08, 0.04, 0.14, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.18, 0.45, 0.5)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="panel_style"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+bg_color = Color(0.1, 0.06, 0.18, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.25, 0.6, 0.6)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.15, 0.05, 0.3, 0.5)
+shadow_size = 8
+
+[resource]
+default_font = ExtResource("1")
+default_font_size = 28
+Button/colors/font_color = Color(0.92, 0.85, 1, 1)
+Button/colors/font_hover_color = Color(1, 0.9, 1, 1)
+Button/colors/font_pressed_color = Color(0.7, 0.6, 0.85, 1)
+Button/font_sizes/font_size = 30
+Button/styles/focus = SubResource("btn_focus")
+Button/styles/hover = SubResource("btn_hover")
+Button/styles/normal = SubResource("btn_normal")
+Button/styles/pressed = SubResource("btn_pressed")
+CheckBox/colors/font_color = Color(0.92, 0.85, 1, 1)
+CheckBox/styles/focus = SubResource("checkbox_focus")
+HSlider/constants/center_grabber = 1
+HSlider/constants/grabber_offset = 0
+HSlider/icons/grabber = ExtResource("grabber_tex")
+HSlider/icons/grabber_highlight = ExtResource("grabber_tex")
+HSlider/styles/focus = SubResource("slider_focus")
+HSlider/styles/grabber_area = SubResource("grabber_area")
+HSlider/styles/grabber_area_highlight = SubResource("grabber_area_highlight")
+HSlider/styles/slider = SubResource("slider_bg")
+Label/colors/font_color = Color(0.9, 0.85, 1, 1)
+Label/font_sizes/font_size = 28
+PanelContainer/styles/panel = SubResource("panel_style")

@@ -1,0 +1,491 @@
+[gd_scene load_steps=22 format=3 uid="uid://bw2n6ajhquxd0"]
+
+[ext_resource type="Script" uid="uid://d2rc8cwg3l3qs" path="res://scripts/game.gd" id="1"]
+[ext_resource type="Script" uid="uid://bavucakkhrdar" path="res://scripts/camera_controller.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://do7s8j752w7er" path="res://scenes/components/thief.tscn" id="4"]
+[ext_resource type="Script" uid="uid://dutgr2pc02ofs" path="res://scripts/game_atmosphere.gd" id="atmosphere_script"]
+[ext_resource type="Texture2D" uid="uid://bdtfy1pnmtg43" path="res://assets/sprites/v2/medieval-ruins/throne_room.png" id="castle_bg_tex"]
+[ext_resource type="Texture2D" uid="uid://cf2iiu34bwssh" path="res://assets/sprites/v2/items/spinning_coin.png" id="coin_tex"]
+[ext_resource type="PackedScene" path="res://scenes/game_over_overlay.tscn" id="gameover"]
+[ext_resource type="Texture2D" uid="uid://d1lp4ej8ejm15" path="res://assets/sprites/v2/items/blue-potion.png" id="hint_tex"]
+[ext_resource type="Texture2D" uid="uid://dhqpk1xahl120" path="res://assets/sprites/v2/items/red-potion.png" id="luck_tex"]
+[ext_resource type="PackedScene" path="res://scenes/pause_menu.tscn" id="pause"]
+[ext_resource type="Texture2D" uid="uid://bqkv67eirl7cx" path="res://assets/sprites/v2/items/green-potion.png" id="shield_tex"]
+[ext_resource type="Theme" uid="uid://bw3axbof1evgf" path="res://themes/default_theme.tres" id="theme"]
+
+[sub_resource type="StyleBoxFlat" id="hud_panel"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 8.0
+bg_color = Color(0.06, 0.03, 0.12, 0.92)
+border_width_bottom = 2
+border_color = Color(0.35, 0.2, 0.5, 0.5)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="AtlasTexture" id="coin_atlas"]
+atlas = ExtResource("coin_tex")
+region = Rect2(0, 0, 40, 44)
+
+[sub_resource type="StyleBoxFlat" id="item_frame"]
+content_margin_left = 14.0
+content_margin_top = 10.0
+content_margin_right = 14.0
+content_margin_bottom = 10.0
+bg_color = Color(0.18, 0.1, 0.06, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.3, 0.15, 0.6)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.1, 0.05, 0.02, 0.5)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="potion_slot"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.06, 0.02, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.6, 0.42, 0.22, 0.85)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.05, 0.02, 0, 0.4)
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="info_btn_hover"]
+content_margin_left = 2.0
+content_margin_top = 0.0
+content_margin_right = 2.0
+content_margin_bottom = 0.0
+bg_color = Color(0.5, 0.35, 0.7, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.6, 1, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="info_btn_normal"]
+content_margin_left = 2.0
+content_margin_top = 0.0
+content_margin_right = 2.0
+content_margin_bottom = 0.0
+bg_color = Color(0.4, 0.25, 0.6, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7, 0.5, 0.9, 0.6)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="cashout_style"]
+content_margin_left = 30.0
+content_margin_top = 14.0
+content_margin_right = 30.0
+content_margin_bottom = 14.0
+bg_color = Color(0.15, 0.55, 0.35, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.2, 0.7, 0.4, 0.8)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.1, 0.5, 0.3, 0.3)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="timer_bar_bg"]
+bg_color = Color(0.15, 0.1, 0.2, 0.7)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="timer_bar_fill"]
+bg_color = Color(0.9, 0.4, 0.3, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1")
+
+[node name="ParallaxBG" type="ParallaxBackground" parent="."]
+
+[node name="StaticLayer" type="ParallaxLayer" parent="ParallaxBG"]
+motion_scale = Vector2(0, 0)
+
+[node name="DarkBG" type="ColorRect" parent="ParallaxBG/StaticLayer"]
+offset_left = -200.0
+offset_top = -2000.0
+offset_right = 950.0
+offset_bottom = 3500.0
+mouse_filter = 2
+color = Color(0.12, 0.1, 0.14, 1)
+
+[node name="CastleLayer" type="ParallaxLayer" parent="ParallaxBG"]
+motion_scale = Vector2(0, 0.03)
+motion_mirroring = Vector2(0, 1334)
+
+[node name="Castle" type="Sprite2D" parent="ParallaxBG/CastleLayer"]
+modulate = Color(0.7, 0.5, 0.8, 0.8)
+position = Vector2(375, 667)
+scale = Vector2(0.348, 0.618)
+texture = ExtResource("castle_bg_tex")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.92, 0.9, 0.95, 1)
+
+[node name="Tower" type="Node2D" parent="."]
+
+[node name="Thief" parent="." instance=ExtResource("4")]
+position = Vector2(375, 400)
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(375, 600)
+script = ExtResource("2")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HUDContainer" type="Control" parent="HUD"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("theme")
+
+[node name="TopPanel" type="PanelContainer" parent="HUD/HUDContainer"]
+layout_mode = 0
+anchor_right = 1.0
+offset_bottom = 80.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("hud_panel")
+
+[node name="TopBar" type="Control" parent="HUD/HUDContainer/TopPanel"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PauseBtn" type="Button" parent="HUD/HUDContainer/TopPanel/TopBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 64.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 22
+text = "II"
+
+[node name="LevelVBox" type="VBoxContainer" parent="HUD/HUDContainer/TopPanel/TopBar"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -140.0
+offset_top = 2.0
+offset_right = 140.0
+offset_bottom = 60.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = -2
+
+[node name="LevelLabel" type="Label" parent="HUD/HUDContainer/TopPanel/TopBar/LevelVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "FLOOR 0/10"
+horizontal_alignment = 1
+
+[node name="StarsBox" type="HBoxContainer" parent="HUD/HUDContainer/TopPanel/TopBar/LevelVBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="ScoreBox" type="HBoxContainer" parent="HUD/HUDContainer/TopPanel/TopBar"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -130.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 50.0
+grow_horizontal = 0
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="ScoreLabel" type="Label" parent="HUD/HUDContainer/TopPanel/TopBar/ScoreBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 34
+text = "0"
+horizontal_alignment = 2
+
+[node name="CoinIcon" type="TextureRect" parent="HUD/HUDContainer/TopPanel/TopBar/ScoreBox"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("coin_atlas")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="ItemBar" type="PanelContainer" parent="HUD/HUDContainer"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = -215.0
+offset_right = 130.0
+offset_bottom = -145.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("item_frame")
+
+[node name="Potions" type="HBoxContainer" parent="HUD/HUDContainer/ItemBar"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="HintSlot" type="PanelContainer" parent="HUD/HUDContainer/ItemBar/Potions"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("potion_slot")
+
+[node name="VBox" type="VBoxContainer" parent="HUD/HUDContainer/ItemBar/Potions/HintSlot"]
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="HintBtn" type="TextureButton" parent="HUD/HUDContainer/ItemBar/Potions/HintSlot/VBox"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("hint_tex")
+stretch_mode = 0
+
+[node name="Badge" type="Label" parent="HUD/HUDContainer/ItemBar/Potions/HintSlot/VBox/HintBtn"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -22.0
+offset_top = -18.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.9)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 2
+
+[node name="NameLabel" type="Label" parent="HUD/HUDContainer/ItemBar/Potions/HintSlot/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 1, 0.7)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.5)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 11
+text = "Insight"
+horizontal_alignment = 1
+
+[node name="InfoBtn" type="Button" parent="HUD/HUDContainer/ItemBar/Potions/HintSlot/VBox"]
+custom_minimum_size = Vector2(22, 20)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_colors/font_color = Color(0.95, 0.85, 1, 0.95)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 12
+theme_override_styles/hover = SubResource("info_btn_hover")
+theme_override_styles/pressed = SubResource("info_btn_hover")
+theme_override_styles/normal = SubResource("info_btn_normal")
+text = "?"
+
+[node name="ShieldSlot" type="PanelContainer" parent="HUD/HUDContainer/ItemBar/Potions"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("potion_slot")
+
+[node name="VBox" type="VBoxContainer" parent="HUD/HUDContainer/ItemBar/Potions/ShieldSlot"]
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="ShieldBtn" type="TextureButton" parent="HUD/HUDContainer/ItemBar/Potions/ShieldSlot/VBox"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("shield_tex")
+stretch_mode = 0
+
+[node name="Badge" type="Label" parent="HUD/HUDContainer/ItemBar/Potions/ShieldSlot/VBox/ShieldBtn"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -22.0
+offset_top = -18.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.9)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 2
+
+[node name="NameLabel" type="Label" parent="HUD/HUDContainer/ItemBar/Potions/ShieldSlot/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 1, 0.7)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.5)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 11
+text = "Shield"
+horizontal_alignment = 1
+
+[node name="InfoBtn" type="Button" parent="HUD/HUDContainer/ItemBar/Potions/ShieldSlot/VBox"]
+custom_minimum_size = Vector2(22, 20)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_colors/font_color = Color(0.95, 0.85, 1, 0.95)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 12
+theme_override_styles/hover = SubResource("info_btn_hover")
+theme_override_styles/pressed = SubResource("info_btn_hover")
+theme_override_styles/normal = SubResource("info_btn_normal")
+text = "?"
+
+[node name="LuckSlot" type="PanelContainer" parent="HUD/HUDContainer/ItemBar/Potions"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("potion_slot")
+
+[node name="VBox" type="VBoxContainer" parent="HUD/HUDContainer/ItemBar/Potions/LuckSlot"]
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="LuckBtn" type="TextureButton" parent="HUD/HUDContainer/ItemBar/Potions/LuckSlot/VBox"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("luck_tex")
+stretch_mode = 0
+
+[node name="Badge" type="Label" parent="HUD/HUDContainer/ItemBar/Potions/LuckSlot/VBox/LuckBtn"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -22.0
+offset_top = -18.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.9)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 2
+
+[node name="NameLabel" type="Label" parent="HUD/HUDContainer/ItemBar/Potions/LuckSlot/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 1, 0.7)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.5)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 11
+text = "Luck"
+horizontal_alignment = 1
+
+[node name="InfoBtn" type="Button" parent="HUD/HUDContainer/ItemBar/Potions/LuckSlot/VBox"]
+custom_minimum_size = Vector2(22, 20)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_colors/font_color = Color(0.95, 0.85, 1, 0.95)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 12
+theme_override_styles/hover = SubResource("info_btn_hover")
+theme_override_styles/pressed = SubResource("info_btn_hover")
+theme_override_styles/normal = SubResource("info_btn_normal")
+text = "?"
+
+[node name="CashOutBtn" type="Button" parent="HUD/HUDContainer"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -130.0
+offset_right = 140.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("cashout_style")
+theme_override_styles/pressed = SubResource("cashout_style")
+theme_override_styles/normal = SubResource("cashout_style")
+text = "LEAVE"
+
+[node name="EventLabel" type="Label" parent="HUD/HUDContainer"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.4
+anchor_right = 0.5
+anchor_bottom = 0.4
+offset_left = -250.0
+offset_top = -30.0
+offset_right = 250.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerBar" type="ProgressBar" parent="HUD/HUDContainer"]
+layout_mode = 0
+anchor_left = 0.1
+anchor_right = 0.9
+offset_top = 88.0
+offset_bottom = 100.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("timer_bar_bg")
+theme_override_styles/fill = SubResource("timer_bar_fill")
+value = 100.0
+show_percentage = false
+
+[node name="Atmosphere" type="CanvasLayer" parent="."]
+script = ExtResource("atmosphere_script")
+
+[node name="PauseMenu" parent="." instance=ExtResource("pause")]
+visible = false
+
+[node name="GameOverOverlay" parent="." instance=ExtResource("gameover")]
+visible = false

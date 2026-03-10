@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvp4qutty6jmb"]
+
+[ext_resource type="Script" uid="uid://cm57ni1wqmk70" path="res://scripts/components/tower_level.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://ccw4w6d6kvli2" path="res://assets/sprites/v2/tiles/castle-dungeon/Castle-Dungeon_Tiles/Individual_Tiles/E1.png" id="wall_tex"]
+[ext_resource type="Texture2D" uid="uid://bo44umkv0nvse" path="res://assets/sprites/v2/tiles/castle-dungeon/Castle-Dungeon_Tiles/Individual_Tiles/D1.png" id="wall_tex2"]
+
+[node name="TowerLevel" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Walls" type="Node2D" parent="."]
+z_index = -3
+
+[node name="WL0" type="Sprite2D" parent="Walls"]
+modulate = Color(0.45, 0.4, 0.5, 0.9)
+position = Vector2(-370, -135)
+scale = Vector2(3, 3)
+texture = ExtResource("wall_tex")
+
+[node name="WL1" type="Sprite2D" parent="Walls"]
+modulate = Color(0.4, 0.36, 0.46, 0.9)
+position = Vector2(-370, -45)
+scale = Vector2(3, 3)
+texture = ExtResource("wall_tex2")
+
+[node name="WL2" type="Sprite2D" parent="Walls"]
+modulate = Color(0.45, 0.4, 0.5, 0.9)
+position = Vector2(-370, 45)
+scale = Vector2(3, 3)
+texture = ExtResource("wall_tex")
+
+[node name="WL3" type="Sprite2D" parent="Walls"]
+modulate = Color(0.4, 0.36, 0.46, 0.9)
+position = Vector2(-370, 135)
+scale = Vector2(3, 3)
+texture = ExtResource("wall_tex2")
+
+[node name="WR0" type="Sprite2D" parent="Walls"]
+modulate = Color(0.45, 0.4, 0.5, 0.9)
+position = Vector2(370, -135)
+scale = Vector2(3, 3)
+texture = ExtResource("wall_tex2")
+
+[node name="WR1" type="Sprite2D" parent="Walls"]
+modulate = Color(0.4, 0.36, 0.46, 0.9)
+position = Vector2(370, -45)
+scale = Vector2(3, 3)
+texture = ExtResource("wall_tex")
+
+[node name="WR2" type="Sprite2D" parent="Walls"]
+modulate = Color(0.45, 0.4, 0.5, 0.9)
+position = Vector2(370, 45)
+scale = Vector2(3, 3)
+texture = ExtResource("wall_tex2")
+
+[node name="WR3" type="Sprite2D" parent="Walls"]
+modulate = Color(0.4, 0.36, 0.46, 0.9)
+position = Vector2(370, 135)
+scale = Vector2(3, 3)
+texture = ExtResource("wall_tex")
+
+[node name="Decor" type="Node2D" parent="."]
+z_index = -2
+
+[node name="PlatformVisual" type="Node2D" parent="."]
+z_index = -1
+position = Vector2(0, 80)

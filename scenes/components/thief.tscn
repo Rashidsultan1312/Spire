@@ -1,0 +1,108 @@
+[gd_scene load_steps=13 format=3 uid="uid://do7s8j752w7er"]
+
+[ext_resource type="Script" uid="uid://bjvkbt1c8ogml" path="res://scripts/components/thief.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://cron07yb6c5ir" path="res://assets/sprites/v2/characters/rogue_zboggler.png" id="rogue"]
+
+[sub_resource type="AtlasTexture" id="hurt0"]
+atlas = ExtResource("rogue")
+region = Rect2(160, 132, 32, 32)
+
+[sub_resource type="AtlasTexture" id="hurt1"]
+atlas = ExtResource("rogue")
+region = Rect2(192, 132, 32, 32)
+
+[sub_resource type="AtlasTexture" id="idle0"]
+atlas = ExtResource("rogue")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="idle1"]
+atlas = ExtResource("rogue")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="idle2"]
+atlas = ExtResource("rogue")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="idle3"]
+atlas = ExtResource("rogue")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="jump0"]
+atlas = ExtResource("rogue")
+region = Rect2(64, 88, 32, 32)
+
+[sub_resource type="SpriteFrames" id="frames"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("hurt0")
+}, {
+"duration": 1.0,
+"texture": SubResource("hurt1")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("idle0")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle1")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle2")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("jump0")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 1.0
+}]
+
+[sub_resource type="Animation" id="bob_anim"]
+resource_name = "bob"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -2), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="lib"]
+_data = {
+&"bob": SubResource("bob_anim")
+}
+
+[node name="Thief" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+scale = Vector2(5, 5)
+sprite_frames = SubResource("frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="AnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("lib")
+}
+autoplay = "bob"

@@ -1,0 +1,28 @@
+[gd_scene load_steps=9 format=3 uid="uid://n7ho7d2ek6l0"]
+
+[ext_resource type="Script" uid="uid://bllxbjpjkramq" path="res://scripts/components/tile.gd" id="1"]
+[ext_resource type="Script" uid="uid://cxh60s4p2gwla" path="res://scripts/drawing/tile_drawer.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://bu4erkeraa0hb" path="res://assets/sprites/v2/medieval-ruins/chest_locked.png" id="card_hidden"]
+[ext_resource type="Texture2D" uid="uid://cjlx6lgur5baw" path="res://assets/sprites/v2/medieval-ruins/chest_unlocked.png" id="card_safe"]
+[ext_resource type="Texture2D" uid="uid://dg54tdvim2u63" path="res://assets/sprites/v2/medieval-ruins/wraith.png" id="trap_guard"]
+[ext_resource type="Texture2D" uid="uid://b3qjn02rfjexi" path="res://assets/sprites/v2/medieval-ruins/rock.png" id="trap_rock"]
+[ext_resource type="Texture2D" uid="uid://dnrcnbbqvd0h7" path="res://assets/sprites/v2/medieval-ruins/spikes.png" id="trap_spikes"]
+
+[sub_resource type="RectangleShape2D" id="shape1"]
+size = Vector2(160, 160)
+
+[node name="root" type="Area2D"]
+script = ExtResource("1")
+
+[node name="TileVisual" type="Sprite2D" parent="."]
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("card_hidden")
+script = ExtResource("2")
+hidden_tex = ExtResource("card_hidden")
+safe_tex = ExtResource("card_safe")
+trap_spikes_tex = ExtResource("trap_spikes")
+trap_rock_tex = ExtResource("trap_rock")
+trap_guard_tex = ExtResource("trap_guard")
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+shape = SubResource("shape1")
