@@ -11,7 +11,7 @@ workflows:
       vars:
         GODOT_VERSION: "4.6.1-stable"
         GODOT_TEMPL_VERSION_DIR: "4.6.1.stable"
-        EXPORT_PRESET: "IOS"
+        EXPORT_PRESET: "iOS"
 
         APPSTORE_KEY_ID: "GPTK9WVB7R"
         APPSTORE_ISSUER_ID: "dc5635b4-0837-42bc-870b-8717f69b578d"
