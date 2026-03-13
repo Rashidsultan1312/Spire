@@ -6,19 +6,19 @@ workflows:
 
     environment:
       groups:
-        - CTQR
+        - SSTR
 
       vars:
         GODOT_VERSION: "4.6.1-stable"
         GODOT_TEMPL_VERSION_DIR: "4.6.1.stable"
         EXPORT_PRESET: "iOS"
 
-        APPSTORE_KEY_ID: "QM8F42WFT5"
-        APPSTORE_ISSUER_ID: "730d5cf3-32ea-4113-b7a9-0e210845e0a9"
+        APPSTORE_KEY_ID: "GPTK9WVB7R"
+        APPSTORE_ISSUER_ID: "dc5635b4-0837-42bc-870b-8717f69b578d"
 
       ios_signing:
         provisioning_profiles:
-          - CTQR
+          - SSTR
 
     scripts:
       - name: Install dependencies
@@ -98,8 +98,8 @@ workflows:
               <string>manual</string>
               <key>provisioningProfiles</key>
               <dict>
-                  <key>com.cyber.tower</key>
-                  <string>CTQR</string>
+                  <key>com.sm.shadowspiretreasurerun</key>
+                  <string>SSTR</string>
               </dict>
           </dict>
           </plist>
