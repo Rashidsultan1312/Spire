@@ -1,0 +1,93 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/achievements_overlay.gd" id="1"]
+[ext_resource type="Theme" uid="uid://bw3axbof1evgf" path="res://themes/default_theme.tres" id="theme"]
+
+[sub_resource type="StyleBoxFlat" id="overlay_panel"]
+content_margin_left = 20.0
+content_margin_top = 16.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
+bg_color = Color(0.08, 0.05, 0.14, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.72, 0.58, 0.22, 0.5)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="AchievementsOverlay" type="CanvasLayer"]
+layer = 10
+visible = false
+script = ExtResource("1")
+
+[node name="BG" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 40.0
+offset_right = -30.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("theme")
+theme_override_styles/panel = SubResource("overlay_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="Panel/VBox/TitleRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 36
+text = "ACHIEVEMENTS"
+
+[node name="CountLabel" type="Label" parent="Panel/VBox/TitleRow"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 22
+text = "0/15"
+
+[node name="Sep1" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="AchList" type="VBoxContainer" parent="Panel/VBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Sep2" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="BackBtn" type="Button" parent="Panel/VBox"]
+custom_minimum_size = Vector2(240, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = "BACK"

@@ -1,0 +1,296 @@
+[gd_scene load_steps=11 format=3 uid="uid://d38i1i3a1gjmd"]
+
+[ext_resource type="Script" uid="uid://bcpp4rp08vjaw" path="res://scripts/main_menu.gd" id="1"]
+[ext_resource type="Script" uid="uid://bt0okroedu80i" path="res://scripts/menu_bg_effect.gd" id="bg_fx"]
+[ext_resource type="Texture2D" uid="uid://cb7pmrd3dek7d" path="res://assets/sprites/v3/bg/menu_bg.png" id="bg_tex"]
+[ext_resource type="Texture2D" uid="uid://c5dbwbnp1gg3k" path="res://assets/sprites/v3/ui/spire_logo.png" id="logo_tex"]
+[ext_resource type="PackedScene" path="res://scenes/play_overlay.tscn" id="play_overlay"]
+[ext_resource type="PackedScene" uid="uid://d4gmahrq1f06j" path="res://scenes/shop_overlay.tscn" id="shop_overlay"]
+[ext_resource type="PackedScene" path="res://scenes/missions_overlay.tscn" id="missions_overlay"]
+[ext_resource type="PackedScene" path="res://scenes/achievements_overlay.tscn" id="achievements_overlay"]
+[ext_resource type="PackedScene" path="res://scenes/daily_reward.tscn" id="daily_reward"]
+[ext_resource type="Theme" uid="uid://bw3axbof1evgf" path="res://themes/default_theme.tres" id="theme"]
+[ext_resource type="Texture2D" uid="uid://ccilk4mfic3al" path="res://assets/sprites/v3/ui/coin_icon.png" id="coin_tex"]
+
+[sub_resource type="StyleBoxFlat" id="small_panel"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 8.0
+bg_color = Color(0.06, 0.04, 0.12, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72, 0.58, 0.22, 0.4)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="AtlasTexture" id="coin_atlas"]
+atlas = ExtResource("coin_tex")
+region = Rect2(0, 0, 128, 128)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("theme")
+script = ExtResource("1")
+
+[node name="BGEffect" type="Node2D" parent="."]
+script = ExtResource("bg_fx")
+
+[node name="BG" type="Sprite2D" parent="BGEffect"]
+texture = ExtResource("bg_tex")
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -450.0
+offset_right = 300.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="TopSpacer" type="Control" parent="Content"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="TitlePanel" type="VBoxContainer" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Logo" type="TextureRect" parent="Content/TitlePanel"]
+texture_filter = 1
+custom_minimum_size = Vector2(750, 340)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+texture = ExtResource("logo_tex")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MidSpacer" type="Control" parent="Content"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Buttons" type="VBoxContainer" parent="Content"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="PlayBtn" type="Button" parent="Content/Buttons"]
+custom_minimum_size = Vector2(560, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 42
+text = "PLAY"
+
+[node name="ShopBtn" type="Button" parent="Content/Buttons"]
+custom_minimum_size = Vector2(560, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 42
+text = "SHOP"
+
+[node name="MissionsBtn" type="Button" parent="Content/Buttons"]
+custom_minimum_size = Vector2(560, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 42
+text = "MISSIONS"
+
+[node name="AchievementsBtn" type="Button" parent="Content/Buttons"]
+custom_minimum_size = Vector2(560, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 42
+text = "ACHIEVEMENTS"
+
+[node name="SettingsBtn" type="Button" parent="Content/Buttons"]
+custom_minimum_size = Vector2(560, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 42
+text = "SETTINGS"
+
+[node name="BottomSpacer" type="Control" parent="Content"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="WalletPanel" type="PanelContainer" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("small_panel")
+
+[node name="HBox" type="HBoxContainer" parent="Content/WalletPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="WalletIcon" type="Label" parent="Content/WalletPanel/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 1, 0.8)
+theme_override_font_sizes/font_size = 22
+text = "WALLET:"
+
+[node name="WalletLabel" type="Label" parent="Content/WalletPanel/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 24
+text = "0"
+
+[node name="CoinIcon" type="TextureRect" parent="Content/WalletPanel/HBox"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("coin_atlas")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="WalletSpacer" type="Control" parent="Content"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HighScorePanel" type="PanelContainer" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("small_panel")
+
+[node name="HBox" type="HBoxContainer" parent="Content/HighScorePanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="TrophyIcon" type="TextureRect" parent="Content/HighScorePanel/HBox"]
+modulate = Color(1, 0.85, 0.3, 1)
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HighScoreLabel" type="Label" parent="Content/HighScorePanel/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.55, 1)
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+
+[node name="CoinIcon" type="TextureRect" parent="Content/HighScorePanel/HBox"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("coin_atlas")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="SettingsOverlay" type="CanvasLayer" parent="."]
+layer = 10
+visible = false
+
+[node name="BG" type="ColorRect" parent="SettingsOverlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Panel" type="PanelContainer" parent="SettingsOverlay"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -280.0
+offset_right = 300.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("theme")
+
+[node name="VBox" type="VBoxContainer" parent="SettingsOverlay/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="SettingsOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="Sep1" type="HSeparator" parent="SettingsOverlay/Panel/VBox"]
+layout_mode = 2
+
+[node name="SfxRow" type="HBoxContainer" parent="SettingsOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="SfxLabel" type="Label" parent="SettingsOverlay/Panel/VBox/SfxRow"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "SOUNDS"
+
+[node name="SfxSlider" type="HSlider" parent="SettingsOverlay/Panel/VBox/SfxRow"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="MusicRow" type="HBoxContainer" parent="SettingsOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="MusicLabel" type="Label" parent="SettingsOverlay/Panel/VBox/MusicRow"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "MUSIC"
+
+[node name="MusicSlider" type="HSlider" parent="SettingsOverlay/Panel/VBox/MusicRow"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="Sep2" type="HSeparator" parent="SettingsOverlay/Panel/VBox"]
+layout_mode = 2
+
+[node name="BackBtn" type="Button" parent="SettingsOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(240, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = "BACK"
+
+[node name="ShopOverlay" parent="." instance=ExtResource("shop_overlay")]
+
+[node name="PlayOverlay" parent="." instance=ExtResource("play_overlay")]
+
+[node name="MissionsOverlay" parent="." instance=ExtResource("missions_overlay")]
+
+[node name="AchievementsOverlay" parent="." instance=ExtResource("achievements_overlay")]
+
+[node name="DailyReward" parent="." instance=ExtResource("daily_reward")]

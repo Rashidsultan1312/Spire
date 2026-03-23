@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://ki5qry4robom"]
+
+[ext_resource type="Script" uid="uid://brski5hetpasm" path="res://scripts/components/treasure_chest.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/v3/items/chest_open_sheet.png" id="sheet"]
+
+[sub_resource type="AtlasTexture" id="closed"]
+atlas = ExtResource("sheet")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="open"]
+atlas = ExtResource("sheet")
+region = Rect2(192, 192, 192, 192)
+
+[node name="TreasureChest" type="Node2D"]
+script = ExtResource("1")
+closed_tex = SubResource("closed")
+open_tex = SubResource("open")
+
+[node name="ChestVisual" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = SubResource("closed")

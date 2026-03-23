@@ -1,0 +1,172 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/game_over_overlay.gd" id="1"]
+[ext_resource type="Shader" path="res://shaders/blur_overlay.gdshader" id="blur_shader"]
+[ext_resource type="Theme" uid="uid://bw3axbof1evgf" path="res://themes/default_theme.tres" id="theme"]
+[ext_resource type="Texture2D" uid="uid://cf2iiu34bwssh" path="res://assets/sprites/v3/ui/coin_icon.png" id="coin_tex"]
+
+[sub_resource type="AtlasTexture" id="coin_atlas"]
+atlas = ExtResource("coin_tex")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="ShaderMaterial" id="blur_mat"]
+shader = ExtResource("blur_shader")
+shader_parameter/blur_amount = 0.0
+shader_parameter/darkness = 0.0
+
+[sub_resource type="StyleBoxFlat" id="info_bg"]
+content_margin_left = 24.0
+content_margin_top = 16.0
+content_margin_right = 24.0
+content_margin_bottom = 16.0
+bg_color = Color(0.06, 0.03, 0.12, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.44, 0.18, 0.3)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="GameOverOverlay" type="CanvasLayer"]
+layer = 40
+script = ExtResource("1")
+
+[node name="BlurRect" type="ColorRect" parent="."]
+material = SubResource("blur_mat")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -320.0
+offset_right = 300.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("theme")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 52
+text = "TRAPPED!"
+horizontal_alignment = 1
+
+[node name="StarsBox" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 6
+
+[node name="InfoPanel" type="PanelContainer" parent="Panel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+custom_minimum_size = Vector2(400, 0)
+theme_override_styles/panel = SubResource("info_bg")
+
+[node name="InfoVBox" type="VBoxContainer" parent="Panel/VBox/InfoPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="ScoreRow" type="HBoxContainer" parent="Panel/VBox/InfoPanel/InfoVBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="Panel/VBox/InfoPanel/InfoVBox/ScoreRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 30
+text = "+15"
+
+[node name="CoinIcon" type="TextureRect" parent="Panel/VBox/InfoPanel/InfoVBox/ScoreRow"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("coin_atlas")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="WalletRow" type="HBoxContainer" parent="Panel/VBox/InfoPanel/InfoVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="WalletIcon" type="Label" parent="Panel/VBox/InfoPanel/InfoVBox/WalletRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 0.6)
+theme_override_font_sizes/font_size = 16
+text = "WALLET:"
+
+[node name="WalletLabel" type="Label" parent="Panel/VBox/InfoPanel/InfoVBox/WalletRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 0.9)
+theme_override_font_sizes/font_size = 20
+text = "230"
+
+[node name="WalletCoin" type="TextureRect" parent="Panel/VBox/InfoPanel/InfoVBox/WalletRow"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("coin_atlas")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="UnlockLabel" type="Label" parent="Panel/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.85, 1.0, 0.9)
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 6)
+
+[node name="RetryBtn" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(460, 90)
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 34
+text = "RETRY"
+
+[node name="NextBtn" type="Button" parent="Panel/VBox"]
+visible = false
+layout_mode = 2
+custom_minimum_size = Vector2(460, 90)
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.4, 1.0, 0.5, 1)
+theme_override_font_sizes/font_size = 34
+text = "NEXT"
+
+[node name="PrevBtn" type="Button" parent="Panel/VBox"]
+visible = false
+layout_mode = 2
+custom_minimum_size = Vector2(460, 90)
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = "PREV"
+
+[node name="MenuBtn" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(460, 90)
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 34
+text = "MENU"

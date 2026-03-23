@@ -1,0 +1,213 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/play_overlay.gd" id="1"]
+[ext_resource type="Theme" uid="uid://bw3axbof1evgf" path="res://themes/default_theme.tres" id="theme"]
+[ext_resource type="Texture2D" path="res://assets/sprites/v3/ui/lock.png" id="lock_tex"]
+
+[sub_resource type="StyleBoxFlat" id="overlay_panel"]
+content_margin_left = 24.0
+content_margin_top = 20.0
+content_margin_right = 24.0
+content_margin_bottom = 20.0
+bg_color = Color(0.08, 0.05, 0.14, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.72, 0.58, 0.22, 0.5)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="start_btn_normal"]
+content_margin_left = 30.0
+content_margin_top = 14.0
+content_margin_right = 30.0
+content_margin_bottom = 14.0
+bg_color = Color(0.12, 0.28, 0.18, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.25, 0.55, 0.3, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="start_btn_hover"]
+content_margin_left = 30.0
+content_margin_top = 14.0
+content_margin_right = 30.0
+content_margin_bottom = 14.0
+bg_color = Color(0.16, 0.35, 0.22, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.3, 0.65, 0.38, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0.3, 0.65, 0.38, 0.25)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="arrow_btn_normal"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+bg_color = Color(0.08, 0.05, 0.14, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.72, 0.58, 0.22, 0.6)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="arrow_btn_hover"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+bg_color = Color(0.12, 0.08, 0.2, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.7, 0.28, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="PlayOverlay" type="CanvasLayer"]
+layer = 10
+visible = false
+script = ExtResource("1")
+
+[node name="BG" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -550.0
+offset_right = 340.0
+offset_bottom = 550.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("theme")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.8, 1.0, 1)
+theme_override_font_sizes/font_size = 30
+text = "SELECT WORLD"
+horizontal_alignment = 1
+
+[node name="Sep1" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="WorldScroll" type="ScrollContainer" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 580)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="WorldGrid" type="GridContainer" parent="Panel/VBox/WorldScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="WorldDesc" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.75, 1.0, 0.7)
+theme_override_font_sizes/font_size = 16
+text = "Old castle cellar"
+horizontal_alignment = 1
+
+[node name="Sep2" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="DiffTitle" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 1.0, 1)
+theme_override_font_sizes/font_size = 18
+text = "DIFFICULTY"
+horizontal_alignment = 1
+
+[node name="DiffRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="DiffLeft" type="Button" parent="Panel/VBox/DiffRow"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.7, 0.28, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("arrow_btn_normal")
+theme_override_styles/hover = SubResource("arrow_btn_hover")
+theme_override_styles/pressed = SubResource("arrow_btn_hover")
+text = "<"
+
+[node name="DiffLabel" type="Label" parent="Panel/VBox/DiffRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 1.0, 1)
+theme_override_font_sizes/font_size = 24
+text = "NORMAL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DiffRight" type="Button" parent="Panel/VBox/DiffRow"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.7, 0.28, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("arrow_btn_normal")
+theme_override_styles/hover = SubResource("arrow_btn_hover")
+theme_override_styles/pressed = SubResource("arrow_btn_hover")
+text = ">"
+
+[node name="Sep3" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="StartBtn" type="Button" parent="Panel/VBox"]
+custom_minimum_size = Vector2(280, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("start_btn_normal")
+theme_override_styles/hover = SubResource("start_btn_hover")
+theme_override_styles/pressed = SubResource("start_btn_hover")
+text = "START"
+
+[node name="BackBtn" type="Button" parent="Panel/VBox"]
+custom_minimum_size = Vector2(200, 45)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 22
+text = "BACK"
