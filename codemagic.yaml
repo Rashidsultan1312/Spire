@@ -1,0 +1,122 @@
+workflows:
+  ios-godot-appstore:
+    name: iOS Godot 4.6.1 > App Store
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+
+    environment:
+      groups:
+        - SS
+
+      vars:
+        GODOT_VERSION: "4.6.1-stable"
+        GODOT_TEMPL_VERSION_DIR: "4.6.1.stable"
+        EXPORT_PRESET: "iOS"
+
+        APPSTORE_KEY_ID: "86D84DGX63"
+        APPSTORE_ISSUER_ID: "43edb1cf-dfee-4f28-a4b2-82657e3b7261"
+
+      ios_signing:
+        provisioning_profiles:
+          - SS
+
+    scripts:
+      - name: Install dependencies
+        script: |
+          brew install curl unzip || true
+
+      - name: Download Godot
+        script: |
+          set -e
+          mkdir -p tools
+          cd tools
+
+          curl -L -o godot.zip \
+            https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_macos.universal.zip
+
+          unzip -o godot.zip
+          chmod +x Godot*.app/Contents/MacOS/Godot*
+
+      - name: Install export templates
+        script: |
+          set -e
+          cd tools
+
+          curl -L -o templates.tpz \
+            https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz
+
+          TEMPL_DIR="$HOME/Library/Application Support/Godot/export_templates/${GODOT_TEMPL_VERSION_DIR}"
+          mkdir -p "$TEMPL_DIR"
+
+          unzip -o templates.tpz
+          mv templates/* "$TEMPL_DIR/"
+
+      - name: Export iOS project
+        script: |
+          set -e
+          mkdir -p build/ios
+
+          GODOT_BIN=$(find tools -type f -path "*Godot*.app/Contents/MacOS/*" | head -n 1)
+
+          "$GODOT_BIN" --headless \
+            --path . \
+            --export-release "${EXPORT_PRESET}" \
+            build/ios
+
+      - name: Build IPA
+        script: |
+          set -e
+
+          XCODEPROJ=$(find build -name "*.xcodeproj" | head -n 1)
+          echo "Using project: $XCODEPROJ"
+
+          SCHEME=$(xcodebuild -list -project "$XCODEPROJ" \
+            | awk '/Schemes:/{flag=1;next} flag && NF{print; exit}' \
+            | xargs)
+
+          echo "Using scheme: $SCHEME"
+
+          xcode-project use-profiles --project "$XCODEPROJ"
+
+          xcodebuild \
+            -project "$XCODEPROJ" \
+            -scheme "$SCHEME" \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath "$CM_BUILD_DIR/App.xcarchive" \
+            archive
+
+          cat > exportOptions.plist <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+          "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>method</key>
+              <string>app-store-connect</string>
+              <key>signingStyle</key>
+              <string>manual</string>
+              <key>provisioningProfiles</key>
+              <dict>
+                  <key>cm.vc.shadowspire</key>
+                  <string>SS</string>
+              </dict>
+          </dict>
+          </plist>
+          EOF
+
+          xcodebuild -exportArchive \
+            -archivePath "$CM_BUILD_DIR/App.xcarchive" \
+            -exportPath ipa \
+            -exportOptionsPlist exportOptions.plist
+
+
+    artifacts:
+      - ipa/*.ipa
+
+    publishing:
+      app_store_connect:
+        api_key: $ASC_PRIVATE_KEY
+        key_id: $APPSTORE_KEY_ID
+        issuer_id: $APPSTORE_ISSUER_ID
+        submit_to_testflight: false
