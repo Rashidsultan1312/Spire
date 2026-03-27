@@ -13,8 +13,8 @@ workflows:
         GODOT_TEMPL_VERSION_DIR: "4.6.1.stable"
         EXPORT_PRESET: "iOS"
 
-        APPSTORE_KEY_ID: "86D84DGX63"
-        APPSTORE_ISSUER_ID: "43edb1cf-dfee-4f28-a4b2-82657e3b7261"
+        APPSTORE_KEY_ID: "GPTK9WVB7R"
+        APPSTORE_ISSUER_ID: "dc5635b4-0837-42bc-870b-8717f69b578d"
 
       ios_signing:
         provisioning_profiles:
