@@ -6,7 +6,7 @@ workflows:
 
     environment:
       groups:
-        - SS
+        - SSTR
 
       vars:
         GODOT_VERSION: "4.6.1-stable"
@@ -18,7 +18,7 @@ workflows:
 
       ios_signing:
         provisioning_profiles:
-          - SS
+          - SSTR
 
     scripts:
       - name: Install dependencies
@@ -98,8 +98,8 @@ workflows:
               <string>manual</string>
               <key>provisioningProfiles</key>
               <dict>
-                  <key>cm.vc.shadowspire</key>
-                  <string>SS</string>
+                  <key>com.sm.shadowspiretreasurerun</key>
+                  <string>SSTR</string>
               </dict>
           </dict>
           </plist>
